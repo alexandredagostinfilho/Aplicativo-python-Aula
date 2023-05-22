@@ -275,7 +275,7 @@ while i == True:
                 comprimento = str(input("Digite o comprimento"))
                 largura = str(input("Digite a largura"))
                 expessura = str(input("Digite a expessura"))
-                if valida_campos(comprimento) or valida_campos(largura) or valida_campos(expessura):
+                if valida_campos(comprimento) == False or valida_campos(largura) == False or valida_campos(expessura) == False:
                     print("Digite apenas numeros")
                     continue
                 else:
