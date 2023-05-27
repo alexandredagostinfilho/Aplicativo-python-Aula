@@ -1,6 +1,10 @@
+import pickle
+import json
 print("*" * 20)
 print(" Tabelador ")
 print("*" *20)
+from pathlib import Path
+
 
 def valida_campos(valor):
      valida = valor.isdigit()
@@ -14,17 +18,20 @@ def valida_campos(valor):
 
 
 i = True
-n = 0
-while i == True:
+
+while i == True:    
         while True:
             nomeCliente = str(input("Digite o nome do cliente"))
-            n = n + 1
-            print(n) 
+                      
             print("\033[36m===\033[m" * 20)    
             print("\033[32mÉ beneficiada ou bruta\033[m")
             print("\033[33m[1] Beneficiada\033[m")
             print("\033[33m[2] Bruta\033[m")
             QTmadeira = (input("\033[36m:\033[m"))
+            if QTmadeira == '1':
+                s = 'Beneficiada'
+            else:
+                s = "bruta"
             print("\033[36m===\033[m" * 20)         
             if valida_campos(QTmadeira) > 2 or valida_campos(QTmadeira) < 0 or valida_campos(QTmadeira) == False:
                 print("Digite somente as opções acima")       
@@ -37,6 +44,10 @@ while i == True:
                     print('[1] metro quadrado')
                     print('[2] metro cubico')            
                     Tmetragem = (input(":"))
+                    if Tmetragem == '1':
+                        t = 'm²'
+                    else:
+                        t = "m³"
                     print("===" * 20)      
                     if(valida_campos(Tmetragem) > 2 or valida_campos(Tmetragem) < 0 or valida_campos(Tmetragem) == False): 
                         print("Digite um numero entre as opções")  
@@ -48,20 +59,22 @@ while i == True:
                     comprimento = (input("Digite o comprimento"))
                     largura = (input("Digite a largura"))
                     expessura = (input("Digite a expessura"))
-                    print("===" * 20) 
+                    print("===" * 20)
+                
+                    t = "m³" 
                     if valida_campos(comprimento) == False or valida_campos(largura) == False or valida_campos(expessura) == False:
                         print("Digite um numero")
                         continue
                     else:                         
                          tamanho = valida_campos(comprimento) * valida_campos(largura) * valida_campos(expessura)
-                         Tmetragem = "0"
+                         Tmetragem = "2"
                          break
                 # else:                        
                 #      tamanho = valida_campos(comprimento) * valida_campos(largura) * valida_campos(expessura)                     
                 #      break
                                 
         while True:                           
-            if Tmetragem == '1':
+            if Tmetragem == '1' and QTmadeira == '1':
                     print("===" * 20) 
                     comprimento = (input("Digite o comprimento"))
                     largura = (input("Digite a largura"))
@@ -71,10 +84,10 @@ while i == True:
                         continue
                     else:
                         tamanho = valida_campos(comprimento) * valida_campos(largura)
-                        # Tmetragem = '0'                          
+                        Tmetragem = '0'                          
                         break     
                                  
-            elif Tmetragem == '2':
+            elif Tmetragem == '2' and QTmadeira == '1':
                     print("===" * 20) 
                     comprimento = (input("Digite o comprimento"))
                     largura = (input("Digite a largura"))
@@ -97,7 +110,11 @@ while i == True:
                 print("[1] tabuas")
                 print("[2] barotes")
                 print("===" * 20) 
-                Tipo = (input(":")) 
+                Tipo = (input(":"))
+                if Tmetragem == '1':
+                    q = 'Tabuas'
+                else:
+                    q = "Barotes" 
                 if(valida_campos(Tipo) > 2 or valida_campos(Tipo) < 0 or valida_campos(Tipo) == False):
                     print("Digite um numero entre as opções")
                     continue 
@@ -122,6 +139,12 @@ while i == True:
             print("[2] Eucalipto")
             print("[3] Pinus ilhote")
             Qopção = str(input(":"))
+            if Qopção == '1':
+                u = 'Pinheiro araucaria'
+            elif Qopção == '2':
+                u = "Eucalipto"
+            else:
+                u = "Pinus Ilhote"
             print("===" * 20)  
             if(valida_campos(Qopção) > 3 or valida_campos(Qopção) < 0 or valida_campos(Qopção) == False):
                 print("Digite apenas as opções acima")
@@ -137,6 +160,14 @@ while i == True:
                     print("[3] Cerejeira")
                     print("[4] Cerno")
                     OpEucalipto = str(input(":"))
+                    if OpEucalipto == '1':
+                         u = 'Branco'
+                    elif OpEucalipto == '2':
+                        u = "Saligna"
+                    elif OpEucalipto == '3':
+                        u = "Cerejeira"
+                    else:
+                        u = "Cerno"
                     print("===" * 20)  
                     if valida_campos(OpEucalipto) > 4 or valida_campos(OpEucalipto) < 0  or valida_campos(OpEucalipto) == False:
                         print("===" * 20)  
@@ -146,6 +177,16 @@ while i == True:
                         print("[4] Quarta")
                         print("[5] Quinta") 
                         Qqualidade = str(input("Digite a qualidade da madeira"))
+                        if Qqualidade == '1':
+                             u = 'primeira'
+                        elif Qqualidade == '2':
+                            u = "Segunda"
+                        elif Qqualidade == '3':
+                            u = "terceira"
+                        elif Qqualidade == "4":
+                            u = "Quarta"
+                        else:
+                            u = "Quinta"
                         print("===" * 20)  
                         if valida_campos(OpEucalipto) > 5 or valida_campos(OpEucalipto) < 0 or valida_campos(OpEucalipto) == False:
                             print("Digite apenas as opções acima")
@@ -161,6 +202,16 @@ while i == True:
                         print("[5] Quinta")
                         print("===" * 20)  
                         Qqualidade = str(input("Digite a qualidade da madeira"))
+                        if Qqualidade == '1':
+                             p = 'primeira'
+                        elif Qqualidade == '2':
+                            p = "Segunda"
+                        elif Qqualidade == '3':
+                            p = "terceira"
+                        elif Qqualidade == "4":
+                            p = "Quarta"
+                        else:
+                            p = "Quinta"
                         if valida_campos(Qqualidade) > 5 or valida_campos(Qqualidade) < 0 or valida_campos(Qqualidade) == False:
                             print("Digite apenas as opções acima")
                             continue
@@ -174,6 +225,16 @@ while i == True:
                 print("[4] Quarta")
                 print("[5] Quinta") 
                 Qqualidade = str(input("Digite a qualidade da madeira"))
+                if Qqualidade == '1':
+                    p = 'primeira'
+                elif Qqualidade == '2':
+                    p = "Segunda"
+                elif Qqualidade == '3':
+                    p = "terceira"
+                elif Qqualidade == "4":
+                    p = "Quarta"
+                else:
+                    p = "Quinta"
                 print("===" * 20)  
                 if valida_campos(Qqualidade) > 5 or valida_campos(Qqualidade) < 0 or valida_campos(Qqualidade) == False:
                     print("Digite apenas as opções acima")
@@ -192,30 +253,35 @@ while i == True:
             #         print("Digite apenas as opções acima")
             #         continue
             #     else:
-                    # break                       
+                    # break    
+                    # Qinformação = ""
         InfTam = ""
-        QTmadeira = ""
+        
         Tmetragem2 = ""
-        Qinformação = ""
+        Qinformação = ""                    
+       
+        print("===" * 20)      
+        print("Voce digitou essas informações")         
+        print("Tipo de madeira {} - {}".format(QTmadeira, s)) 
+        print("Tipo da metragem {} - {}".format(Tmetragem, t))
+        print("Tamanho {} - {}".format(tamanho, t))
+        print("A madeira é {} - {}".format(Qopção, u))
+        print("A qualidade é {} - {}".format(Qqualidade, p)) 
+        # print("Tipo da madeira {}".format(Tipo))
+        print("A quantidade é igual a {}".format(QuantTabuas))  
+        print("Total da metragem {} - {}".format(valida_campos(QuantTabuas) * tamanho, t)) 
 
         i = False 
         
-        dados = [{QTmadeira}, Tmetragem, tamanho, Qopção, Qqualidade, QuantTabuas]
-        dad = ','.join(map(str, dados))
-        arquivo = open('arquivo.txt', 'w')
-        arquivo.write(dad)
-        arquivo.close()
-        while True:
-            print("===" * 20)      
-            print("Voce digitou essas informações")         
-            print("Tipo de madeira {}".format(QTmadeira)) 
-            print("Tipo da metragem {}".format(Tmetragem))
-            print("Tamanho {}".format(tamanho))
-            print("A madeira é {}".format(Qopção))
-            print("A qualidade é {}".format(Qqualidade)) 
-            # print("Tipo da madeira {}".format(Tipo))
-            print("A quantidade é igual a {}".format(QuantTabuas))  
-            print("Total da metragem {}".format(valida_campos(QuantTabuas) * tamanho))      
+        
+
+        Qinformação = ""
+        InfTam = ""
+        
+        Tmetragem2 = ""
+        Qinformação = "" 
+        while True:          
+               
             print("===" * 20)  
             while True:
                 print("===" * 20)              
@@ -227,11 +293,10 @@ while i == True:
                     print("Digite apenas S ou N")
                     continue
             
-            if informacao == "N":
-                i = False 
-                j = False
-                break 
-                                    
+            if informacao == "N":                
+                break
+             
+                                   
             if informacao == "S":
                 print("===" * 20)          
                 print("Digite a opção que deseja mudar")
@@ -264,12 +329,13 @@ while i == True:
                     print("===" * 20)  
                     if InfTam == "N":
                         Tmetragem2 = '0'
+                        break
                                      
                     if InfTam == 'S' or InfTam == 'N':
                          break            
                     else:
                          print("Digite apenas S ou N")
-                         continue           
+                         continue          
                                          
             else:
                 break         
@@ -380,6 +446,7 @@ while i == True:
                     continue
                 else:
                     break
+                
             else:
                 break
               
@@ -420,7 +487,7 @@ while i == True:
                     print("[3] terceira")
                     print("[4] Quarta")
                     print("[5] Quinta") 
-                    Qqualidade = str(input("Digite a qualidade da madeira"))
+                    Qqualidade = str(input("Digite a qualidade da madeira"))                    
                     print("===" * 20)  
                     if valida_campos(Qqualidade) > 5 or valida_campos(Qqualidade) < 0 or valida_campos(Qqualidade) == False:
                         print("Digite apenas as opções acima")
@@ -430,26 +497,31 @@ while i == True:
                 else:
                     break      
         
-                              
-while True:           
-        if Tmetragem == '1':
-            print("===" * 20)  
-            ValorMetragem = (input("Valor ao m²: "))
-            print("===" * 20)  
-            if valida_campos(ValorMetragem) == False:
-                print("Digite apenas numeros") 
+
+
+# inf = str(input("Voce deseja alterar mais dados[S/N]")).upper()
+# if inf == 'S':
+#     editaDados(QTmadeira,Tmetragem,tamanho,Qopção,Qqualidade,QuantTabuas)
+# else:   
+        while True:
+            if Tmetragem == '1':
+                print("===" * 20)  
+                ValorMetragem = (input("Valor ao m²: "))
+                print("===" * 20)  
+                if valida_campos(ValorMetragem) == False:
+                    print("Digite apenas numeros") 
+                else:
+                    break
+            elif Tmetragem == '2' or QTmadeira == '2':
+                    print("===" * 20)  
+                    ValorMetragem = (input("Valor em m³: "))
+                    print("===" * 20)  
+                    if valida_campos(ValorMetragem) == False:
+                        print("Digite apenas numeros") 
+                    else:
+                        break
             else:
-                break
-        elif Tmetragem == '2' or QTmadeira == '2':
-            print("===" * 20)  
-            ValorMetragem = (input("Valor em m³: "))
-            print("===" * 20)  
-            if valida_campos(ValorMetragem) == False:
-                print("Digite apenas numeros") 
-            else:
-                break
-        else:
-            break             
+                break             
                 
 print("===" * 20) 
 preco =  valida_campos(QuantTabuas) * tamanho
@@ -457,13 +529,55 @@ preco = preco * valida_campos(ValorMetragem)
 print("O preço ficara igual a {:.2f}".format(preco))             
 print("===" * 20) 
 
-dados = [n,nomeCliente,QTmadeira, Tmetragem, tamanho, Qopção, Qqualidade, QuantTabuas,ValorMetragem, preco]
-dad = ','.join(map(str, dados))
-arquivo = open('arquivo.txt')
-arquivo.write(dad)
-arquivo.close()
-                   
+dados = [nomeCliente, QTmadeira, tamanho, Qopção, Qqualidade,valida_campos(QuantTabuas) * tamanho,  ValorMetragem,QuantTabuas]
 
+
+# Dicionário de exemplo
+
+
+# Serializa os dados em bytes
+dados_serializados = pickle.dumps(dados)
+
+# Salva os bytes serializados em um arquivo de bloco de notas
+with open('dados.txt', 'wb') as arquivo:
+    arquivo.write(dados_serializados)
+
+
+# Abre o arquivo no modo de leitura binária (se existir)
+
+    # Se o arquivo não existir, inicia com uma lista vazia
+    dados_existentes = []
+
+# Adiciona os novos dados aos dados existentes
+dados_existentes.extend(dados)
+
+# Salva os dados atualizados no arquivo de bloco de notas usando pickle
+with open('dados.pkl', 'ab') as arquivo:
+    pickle.dump(dados_existentes, arquivo)
+# Exibe os objetos recuperados
+
+with open('dados.pkl', 'rb') as arquivo:
+    while True:
+        try:
+            objeto = pickle.load(arquivo)
+            # Processar o objeto desserializado
+            print(objeto)
+        except EOFError:
+            break
+
+
+# Utilize os dados desserializados
+# with open('dados.pkl', 'rb') as arquivo:
+#     objetos = pickle.load(arquivo) 
+
+# # Exibe cada objeto desserializado
+
+# for objeto in objetos:
+#     print(objeto)
+    
+    
+
+# Exibe o conteúdo na saída
 
         
 
